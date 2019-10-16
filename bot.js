@@ -120,37 +120,32 @@ client.on('ready', ()=>{
 });
 
 client.on('message', message => {
-    // TODO get roles then check if user has permission
+    if (message.author.bot) return;
     console.log("Guild ID: " + message.guild.id);
     console.log("Channel: " + message.channel.id);
-    /*
-    if (message.content.startsWith("!gbroles"))
-    {
-        message.guild.roles.find(function (value, key, collection, role) {
-            console.log("Value: " + value);
-            console.log("Key: " + key);
-            console.log("COLLECTION: ");
-            console.log(collection.array());
-        });
-        return;
-    }
-    */
-    if (message.content.startsWith("!gbhelp")){
-        message.reply("Use !guildbank to get each guild bank characters inventory.");
-        return;
-    }
-    if (message.content.startsWith("!gbpurge"))
-    {
-        async function clear() {
-            message.delete();
-            const fetched = await message.channel.fetchMessages();
-            message.channel.bulkDelete(fetched);
+    // TODO get roles then check if user has permission
+    if (message.guild.id === "464276161216774155" || message.guild.id === "616065783029563402") {
+        if (message.channel.id === "630302592454492176" || message.channel.id === "634114294149283841")
+        {
+            if (message.content.startsWith("!gbhelp")){
+                message.reply("Use !guildbank to get each guild bank characters inventory.");
+                return;
+            }
+            if (message.content.startsWith("!gbpurge")) {
+                async function clear() {
+                    message.delete();
+                    const fetched = await message.channel.fetchMessages();
+                    message.channel.bulkDelete(fetched);
+                }
+                clear();
+                return;
+            }
+            if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
+                getGuildInventory(message);
+            }
         }
-        clear();
-        return;
-    }
-    if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
-        getGuildInventory(message);
+    } else {
+        message.reply("This discord guild is unable to run this bot");
     }
 });
 
