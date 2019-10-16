@@ -1,0 +1,20 @@
+{
+  "name": "guild-bank-viewer",
+  "version": "0.0.0",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node bot.js"
+  },
+  "dependencies": {
+    "discord.js": "^11.1.0",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.4"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "request-promise": "^4.2.4"
+  }
+}
