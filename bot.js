@@ -126,8 +126,7 @@ client.on('message', message => {
             console.log("Value: " + value);
             console.log("Key: " + key);
             console.log("COLLECTION: ");
-            console.log(collection[0]);
-            return;
+            message.reply(collection.toString());
         });
         return;
     }
