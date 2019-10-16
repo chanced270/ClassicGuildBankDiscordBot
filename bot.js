@@ -126,6 +126,10 @@ client.on('message', message => {
     if (message.content.startsWith("!gbhelp")){
         message.reply("Use !guildbank to get each guild bank characters inventory.")
     }
+    if (message.content.startsWith("!gbroles"))
+    {
+        console.log(message.guild);
+    }
 });
 
 client.login(process.env.BOT_TOKEN);
