@@ -120,6 +120,8 @@ client.on('ready', ()=>{
 });
 
 client.on('message', message => {
+    // TODO get roles then check if user has permission
+    /*
     if (message.content.startsWith("!gbroles"))
     {
         message.guild.roles.find(function (value, key, collection, role) {
@@ -130,11 +132,23 @@ client.on('message', message => {
         });
         return;
     }
-    if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
-        getGuildInventory(message);
-    }
+    */
     if (message.content.startsWith("!gbhelp")){
         message.reply("Use !guildbank to get each guild bank characters inventory.")
+        return;
+    }
+    if (message.content.startsWith("!gbpurge"))
+    {
+        async function clear() {
+            message.delete();
+            const fetched = await message.channel.fetchMessages();
+            message.channel.bulkDelete(fetched);
+        }
+        clear();
+        return;
+    }
+    if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
+        getGuildInventory(message);
     }
 });
 
