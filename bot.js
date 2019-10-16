@@ -120,15 +120,16 @@ client.on('ready', ()=>{
 });
 
 client.on('message', message => {
+    if (message.content.startsWith("!gbroles"))
+    {
+        console.log(message.guild.roles);
+        return;
+    }
     if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
         getGuildInventory(message);
     }
     if (message.content.startsWith("!gbhelp")){
         message.reply("Use !guildbank to get each guild bank characters inventory.")
-    }
-    if (message.content.startsWith("!gbroles"))
-    {
-        console.log(message.guild);
     }
 });
 
