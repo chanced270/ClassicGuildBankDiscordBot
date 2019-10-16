@@ -121,6 +121,8 @@ client.on('ready', ()=>{
 
 client.on('message', message => {
     // TODO get roles then check if user has permission
+    console.log("Guild ID: " + message.guild.id);
+    console.log("Channel: " + message.channel.id);
     /*
     if (message.content.startsWith("!gbroles"))
     {
@@ -134,7 +136,7 @@ client.on('message', message => {
     }
     */
     if (message.content.startsWith("!gbhelp")){
-        message.reply("Use !guildbank to get each guild bank characters inventory.")
+        message.reply("Use !guildbank to get each guild bank characters inventory.");
         return;
     }
     if (message.content.startsWith("!gbpurge"))
