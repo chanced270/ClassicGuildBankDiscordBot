@@ -131,7 +131,7 @@ client.on('message', message => {
                 message.reply("Use !guildbank to get each guild bank characters inventory.");
                 if (message.guild.id === "464276161216774155")
                 {
-                    Client.users.get(message.author.id).send(("Use !guildbank to get each guild bank characters inventory."));
+                    client.users.get(message.author.id).send(("Use !guildbank to get each guild bank characters inventory."));
                 }
                 message.delete();
                 return;
