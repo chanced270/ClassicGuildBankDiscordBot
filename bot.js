@@ -126,8 +126,8 @@ client.on('message', message => {
             console.log("Value: " + value);
             console.log("Key: " + key);
             console.log("COLLECTION: ");
-            console.log(JSON.stringify(collection));
-            console.log("Role: " + role);
+            console.log(collection);
+            return;
         });
         return;
     }
