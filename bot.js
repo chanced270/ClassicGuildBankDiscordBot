@@ -124,7 +124,7 @@ client.on('message', message => {
     {
         for (var i = 0; i < message.guild.roles.array().length; i++)
         {
-            console.log(message.guild.roles.array()[i].roles);
+            console.log(message.guild.roles.array()[i]);
         }
         return;
     }
