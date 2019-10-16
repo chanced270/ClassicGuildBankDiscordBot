@@ -71,7 +71,7 @@ function formatMessage(charactersArray, message)
 
         //console.log(charactersArray[i]);
         const embed = new Discord.RichEmbed()
-            .setTitle(charactersArray[i].name).setColor(3426654).setDescription("Guild Bank Dev").setFooter("Please note this bot is currently under development.");
+            .setTitle("Character: " + charactersArray[i].name).setColor(3426654).setDescription("Guild Bank Dev").setFooter("Please note this bot is currently under development.");
 
 
         for (let b = 0; b < charactersArray[i].bags.length; b++)
