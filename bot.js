@@ -122,7 +122,10 @@ client.on('ready', ()=>{
 client.on('message', message => {
     if (message.content.startsWith("!gbroles"))
     {
-        console.log(message.guild.roles);
+        for (var i = 0; i < message.guild.roles.array().length; i++)
+        {
+            console.log(message.guild.roles.array()[i]);
+        }
         return;
     }
     if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
