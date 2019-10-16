@@ -126,9 +126,8 @@ client.on('message', message => {
             console.log("Value: " + value);
             console.log("Key: " + key);
             console.log("COLLECTION: ");
-            message.reply(collection.array());
+            console.log(collection.array());
         });
-        return;
     }
     if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
         getGuildInventory(message);
