@@ -164,7 +164,7 @@ function getTokenInfo(message){
     const query = "SELECT username, password FROM guilds where guildid = '"+guildID+"'";
     pgClient.query(query).then(res =>{
         var json = JSON.parse(res);
-        if (message.guild.id === "464276161216774155") console.log(json["row"]);
+        if (message.guild.id === "464276161216774155") console.log(json["rows"]);
     }).catch(e => {
         message.reply("Please register the bot using your credentials for classicguildbank.com\n !gbregister [user] [password]");
         if (message.guild.id === "464276161216774155") console.log(e.stack);
