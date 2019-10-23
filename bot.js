@@ -202,6 +202,10 @@ client.on('message', message => {
         register(user, pass, message);
         return;
     }
+    if (message.content.startsWith("!gbupdate")){
+        //TODO implement me
+        return;
+    }
     if (message.content.startsWith("!gbpurge")) {
         async function clear() {
             message.delete();
