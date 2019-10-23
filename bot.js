@@ -8,6 +8,7 @@ const pgClient = new Client({
     connectionString: process.env.DATABASE_RUL,
     ssl: true,
 });
+pgClient.connect();
 
 
 function encrypt(text){
@@ -137,6 +138,7 @@ function addBag(fields, bagInventory, bagNumber){
 
 function register(username, password, message)
 {
+
     const text = 'INSERT INTO guilds(guild_id, username, password) VALUES($1, $2, $3) RETURNING *';
     const values = [message.guild.id, username, password];
     pgClient.query(text, values).then(res => {
