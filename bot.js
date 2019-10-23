@@ -174,38 +174,31 @@ client.on('message', message => {
     console.log("Guild ID: " + message.guild.id);
     console.log("Channel: " + message.channel.id);
     // TODO get roles then check if user has permission
-    if (message.guild.id === "464276161216774155" || message.guild.id === "616065783029563402") {
-        if (message.channel.id === "630302592454492176" || message.channel.id === "634114294149283841")
-        {
-            if (message.content.startsWith("!gbhelp")){
-                message.delete();
-                message.reply("Use !guildbank to get each guild bank characters inventory.");
-                return;
-            }
-            if (message.content.startsWith("!gbregister")){
-                message.delete();
-                var m = message.content.slice(12).split(' ');
-                var user = m[0];
-                var pass = encrypt(m[1]);
-                register(user, pass, message);
-                return;
-            }
-            if (message.content.startsWith("!gbpurge")) {
-                async function clear() {
-                    message.delete();
-                    const fetched = await message.channel.fetchMessages();
-                    message.channel.bulkDelete(fetched);
-                }
-                clear();
-                return;
-            }
-            if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
-                getTokenInfo(message);
-                message.delete();
-            }
+    if (message.content.startsWith("!gbhelp")){
+        message.delete();
+        message.reply("Use !guildbank to get each guild bank characters inventory. \n To setup use: !gbregister [username] [password]");
+        return;
+    }
+    if (message.content.startsWith("!gbregister")){
+        message.delete();
+        var m = message.content.slice(12).split(' ');
+        var user = m[0];
+        var pass = encrypt(m[1]);
+        register(user, pass, message);
+        return;
+    }
+    if (message.content.startsWith("!gbpurge")) {
+        async function clear() {
+            message.delete();
+            const fetched = await message.channel.fetchMessages();
+            message.channel.bulkDelete(fetched);
         }
-    } else {
-        message.reply("This discord guild is unable to run this bot");
+        clear();
+        return;
+    }
+    if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
+        getTokenInfo(message);
+        message.delete();
     }
 });
 
