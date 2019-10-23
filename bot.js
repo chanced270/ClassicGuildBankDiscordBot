@@ -22,7 +22,7 @@ function decrypt(cipher) {
 function getGuildInventory(message)
 {
     var tokenInfo = getTokenInfo(message);
-    if (!tokenInfo)
+    if ((tokenInfo.user === "") || tokenInfo.pass === "")
     {
         message.reply("Unable to retrieve Guild Bank");
         return;
@@ -160,15 +160,18 @@ function register(username, password, message)
 
 function getTokenInfo(message){
     console.log("GET TOKEN INFO: " + message.guild.id);
+    var data = {user: "", pass: ""};
     var guildID = message.guild.id;
     const query = "SELECT username, password FROM guilds where guildid = '"+guildID+"'";
     pgClient.query(query).then(res =>{
         if (message.guild.id === "464276161216774155") console.log(res.rows[0]);
-        return {user: res.rows[0].username, pass: res.rows[0].password};
+        data.user = res.rows[0].username;
+        data.pass = res.rows[0].password;
     }).catch(e => {
         message.reply("Please register the bot using your credentials for classicguildbank.com\n !gbregister [user] [password]");
         if (message.guild.id === "464276161216774155") console.log(e.stack);
-    })
+    });
+    return data;
 }
 client.on('ready', ()=>{
     client.user.setPresence({game : {name: "!guildbank * !gbhelp"}, status: "online"});
