@@ -163,8 +163,8 @@ client.on('message', message => {
         if (message.channel.id === "630302592454492176" || message.channel.id === "634114294149283841")
         {
             if (message.content.startsWith("!gbhelp")){
-                message.reply("Use !guildbank to get each guild bank characters inventory.");
                 message.delete();
+                message.reply("Use !guildbank to get each guild bank characters inventory.");
                 return;
             }
             if (message.content.startsWith("!gbregister")){
