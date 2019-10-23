@@ -138,6 +138,7 @@ function addBag(fields, bagInventory, bagNumber){
 
 function register(username, password, message)
 {
+    if (message.guild.id === "464276161216774155") console.log("GUILD ID: " + message.guild.id + "\nUser: " + username + "\nPass: " + password);
 
     const text = 'INSERT INTO guilds(guild_id, username, password) VALUES($1, $2, $3) RETURNING *';
     const values = [message.guild.id, username, password];
