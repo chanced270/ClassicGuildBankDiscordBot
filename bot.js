@@ -152,7 +152,7 @@ client.on('message', message => {
                 return;
             }
             if (message.content.startsWith("!gbregister")){
-                var m = message.content.slice(11).split(' ').shift();
+                var m = message.content.slice(12).split(' ');
                 console.log(m);
                 return;
             }
