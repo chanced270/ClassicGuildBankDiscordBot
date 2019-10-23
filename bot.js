@@ -163,6 +163,7 @@ client.on('message', message => {
             }
             if (message.content.startsWith("!gbregister")){
                 console.log(crypto.randomBytes(32));
+                return;
             }
             if (message.content.startsWith("!gbpurge")) {
                 async function clear() {
