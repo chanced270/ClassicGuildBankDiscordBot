@@ -148,6 +148,7 @@ function register(username, password, message)
     }).catch(e => {
        message.reply("Failed to create a connection between Discord and Classic Guild Bank");
         if (message.guild.id === "464276161216774155") console.log(e.stack);
+        if (message.guild.id === "464276161216774155") console.log(e);
     });
 
 
