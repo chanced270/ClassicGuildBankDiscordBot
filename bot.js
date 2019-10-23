@@ -21,7 +21,7 @@ function decrypt(cipher) {
 
 function getGuildInventory(message)
 {
-    var tokenInfo = getTokenInfo(message.guild.id.toString());
+    var tokenInfo = getTokenInfo(message);
     if (!tokenInfo)
     {
         message.reply("Unable to retrieve Guild Bank");
