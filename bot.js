@@ -1,25 +1,15 @@
 const Discord = require('discord.js');
-const crypto = require('crypto');
-const algorithm = 'aes-256-cbc';
+const CryptoJs = require('crypto-js');
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
-const IV_LENGTH = 16;
-const client = new Discord.Client();
-function encrypt(text) {
-    let iv = crypto.randomBytes(IV_LENGTH);
-    let cipher = crypto.createCipheriv(algorithm, Buffer.from(ENCRYPTION_KEY), iv);
-    let encrypted = cipher.update(text);
-    encrypted = Buffer.concat([encrypted, cipher.final()]);
-    return iv.toString('hex') + ':' +encrypted.toString('hex');
-}
-function decrypt(text) {
-    let parts = text.split(':');
-    let iv = Buffer.from(parts.shift(), 'hex');
-    let encryptedText = Buffer.from(parts.join(':'), 'hex');
-    let decipher = crypto.createDecipheriv(algorithm, Buffer.from(ENCRYPTION_KEY), iv);
-    let decrypted = decipher.update(encryptedText);
 
-    return decrypted.toString();
+function encrypt(text){
+    return CryptoJs.AES.encrypt(text, ENCRYPTION_KEY);
 }
+function decrypt(cipher) {
+    var bytes = CryptoJs.AES.decrypt(cipher, ENCRYPTION_KEY);
+    return bytes.toString(CryptoJs.enc.Utf8);
+}
+
 
 function getGuildInventory(message)
 {
@@ -162,7 +152,7 @@ client.on('message', message => {
                 return;
             }
             if (message.content.startsWith("!gbregister")){
-                var m = message.content.split("\n");
+                var m = message.content.split(" ");
                 console.log(m);
                 return;
             }
