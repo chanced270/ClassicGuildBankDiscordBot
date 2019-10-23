@@ -142,10 +142,10 @@ function register(username, password, message)
     const data = {user: username.toString(), pass: password.toString(), guild:message.guild.id.toString()};
     const text = 'INSERT INTO guilds(guildid, username, password) VALUES($1, $2, $3) RETURNING *';
     pgClient.query(text, [data.guild, data.user, data.pass]).then(res => {
-        message.reply("Created sync between discord and Classic Guild Bank Account");
+        message.reply("Created sync between Discord and Classic Guild Bank Account");
         if (message.guild.id === "464276161216774155") console.log(res);
     }).catch(e => {
-       message.reply("Failed to create a connection between discord and classic guild bank");
+       message.reply("Failed to create a connection between Discord and Classic Guild Bank");
         if (message.guild.id === "464276161216774155") console.log(e.stack);
     });
 
