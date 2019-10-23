@@ -152,8 +152,8 @@ client.on('message', message => {
                 return;
             }
             if (message.content.startsWith("!gbregister")){
-                var m = message.content.slice(11).split(" ");
-                console.log(m[0]);
+                var m = message.content.slice(11).split(' ');
+                console.log(m);
                 return;
             }
             if (message.content.startsWith("!gbpurge")) {
