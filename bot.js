@@ -2,14 +2,14 @@ const Discord = require('discord.js');
 const CryptoJs = require('crypto-js');
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
 const client = new Discord.Client();
-//const PGClient = require('pg');
+const PGClient = require('pg');
 /*
 const pgClient = new PGClient({
-    host:  process.env.DATABASE_HOST,
-    username: process.env.DATABASE_USER,
-    password: process.env.DATABASE_PASS,
-    database: process.env.DATABASE_NAME,
+    connectionString: process.env.DATABASE_RUL,
+    ssl: true,
 });
+
+pgClient.connect();
  */
 
 
