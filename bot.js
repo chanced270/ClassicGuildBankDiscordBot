@@ -159,7 +159,7 @@ function register(username, password, message)
 }
 
 function getTokenInfo(message){
-    const query = "SELECT * FROM guilds WHERE guildid='$1'";
+    const query = "SELECT * FROM guilds WHERE guildid = '$1'";
     const values = [message.guild.id.toString()];
     pgClient.query(query, values).then(res =>{
         console.log(res);
