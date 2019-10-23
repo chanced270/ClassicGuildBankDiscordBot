@@ -7,10 +7,11 @@
     "start": "node bot.js"
   },
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
     "discord.js": "^11.1.0",
+    "pg": "^7.12.1",
     "request": "^2.81.0",
-    "request-promise": "^4.2.4",
-    "crypto-js": "^3.1.9-1"
+    "request-promise": "^4.2.4"
   },
   "keywords": [],
   "author": "",
