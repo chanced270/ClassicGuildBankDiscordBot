@@ -151,7 +151,15 @@ function register(username, password, message)
 
 
 }
+function numberofServers(){
+    const query = "SELECT guildid FROM guild";
+    pgClient.query(query).then(res =>{
+        console.log(res.rows.length);
 
+    }).catch(e => {
+        console.log(e.stack);
+    });
+}
 function getTokenInfo(message){
     console.log("GET TOKEN INFO: " + message.guild.id);
     var guildID = message.guild.id;
@@ -165,7 +173,8 @@ function getTokenInfo(message){
     });
 }
 client.on('ready', ()=>{
-    client.user.setPresence({game : {name: "!guildbank * !gbhelp"}, status: "online"});
+    numberofServers();
+    client.user.setPresence({game : {name: "!gbhelp | "}, status: "online"});
     console.log('I am ready!');
 });
 
