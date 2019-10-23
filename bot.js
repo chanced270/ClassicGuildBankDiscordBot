@@ -19,14 +19,8 @@ function decrypt(cipher) {
     return bytes.toString(CryptoJs.enc.Utf8);
 }
 
-function getGuildInventory(message)
+function getGuildInventory(message, tokenInfo)
 {
-    var tokenInfo = getTokenInfo(message);
-    if ((tokenInfo.user === "") || tokenInfo.pass === "")
-    {
-        message.reply("Unable to retrieve Guild Bank");
-        return;
-    }
     //TODO add method to pull account info from heroku postgres
     var request = require("request-promise");
     var options = {
@@ -160,18 +154,15 @@ function register(username, password, message)
 
 function getTokenInfo(message){
     console.log("GET TOKEN INFO: " + message.guild.id);
-    var data = {user: "", pass: ""};
     var guildID = message.guild.id;
     const query = "SELECT username, password FROM guilds where guildid = '"+guildID+"'";
     pgClient.query(query).then(res =>{
         if (message.guild.id === "464276161216774155") console.log(res.rows[0]);
-        data.user = res.rows[0].username;
-        data.pass = res.rows[0].password;
+        getGuildInventory(message, {user: res.rows[0].username, pass: res.rows[0].password});
     }).catch(e => {
         message.reply("Please register the bot using your credentials for classicguildbank.com\n !gbregister [user] [password]");
         if (message.guild.id === "464276161216774155") console.log(e.stack);
     });
-    return data;
 }
 client.on('ready', ()=>{
     client.user.setPresence({game : {name: "!guildbank * !gbhelp"}, status: "online"});
@@ -209,7 +200,7 @@ client.on('message', message => {
                 return;
             }
             if (message.content.startsWith('!guildbank') || message.content.startsWith("!gb")){
-                getGuildInventory(message);
+                getTokenInfo(message);
                 message.delete();
             }
         }
