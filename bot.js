@@ -162,7 +162,7 @@ client.on('message', message => {
                 return;
             }
             if (message.content.startsWith("!gbregister")){
-                console.log(crypto.randomBytes(32));
+                message.reply(crypto.randomBytes(32).toString());
                 return;
             }
             if (message.content.startsWith("!gbpurge")) {
