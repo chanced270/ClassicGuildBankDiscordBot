@@ -152,7 +152,7 @@ function register(username, password, message)
 
 }
 function numberofServers(){
-    const query = "SELECT guildid FROM guild";
+    const query = "SELECT guildid FROM guilds";
     pgClient.query(query).then(res =>{
         console.log(res.rows.length);
 
