@@ -146,6 +146,11 @@ function register(username, password, message)
         if (message.guild.id === "464276161216774155") console.log(res);
         numberofServers();
     }).catch(e => {
+        if (e.constraint === "Guild ID must be unique")
+        {
+            message.reply("This discord server has already been registered");
+            return;
+        }
        message.reply("Failed to create a connection between Discord and Classic Guild Bank");
         if (message.guild.id === "464276161216774155") console.log(e.stack);
         if (message.guild.id === "464276161216774155") console.log(e);
