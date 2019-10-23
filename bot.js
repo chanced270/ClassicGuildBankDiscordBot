@@ -2,6 +2,14 @@ const Discord = require('discord.js');
 const CryptoJs = require('crypto-js');
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
 const client = new Discord.Client();
+const {PGClient} = require('pg');
+const pgClient = new PGClient({
+    host:  process.env.DATABASE_HOST,
+    username: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASS,
+    database: process.env.DATABASE_NAME,
+});
+
 
 function encrypt(text){
     return CryptoJs.AES.encrypt(text, ENCRYPTION_KEY);
@@ -128,9 +136,17 @@ function addBag(fields, bagInventory, bagNumber){
 }
 
 
-function register(username, password)
+function register(username, password, message)
 {
-    // TODO connect to heroku postgres and save guild_id, username, password
+    const text = 'INSERT INTO guilds(guild_id, username, password) VALUES($1, $2, $3) RETURNING *';
+    const values = [message.guild.id, username, password];
+    pgClient.query(text, values).then(res => {
+        message.reply("Created sync between discord and Classic Guild Bank Account");
+        if (message.guild.id === "464276161216774155") console.log(res);
+    }).catch(e => {
+       message.reply("Failed to create a connection between discord and classic guild bank");
+        if (message.guild.id === "464276161216774155") console.log(e.stack);
+    });
 
 }
 client.on('ready', ()=>{
@@ -152,11 +168,11 @@ client.on('message', message => {
                 return;
             }
             if (message.content.startsWith("!gbregister")){
+                message.delete();
                 var m = message.content.slice(12).split(' ');
                 var user = m[0];
                 var pass = encrypt(m[1]);
-                message.reply("User: " + user + "\nPass: " + pass);
-                message.reply("Decrypted: " + decrypt(pass));
+                register(user, pass, message);
                 return;
             }
             if (message.content.startsWith("!gbpurge")) {
