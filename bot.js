@@ -1,7 +1,29 @@
 const Discord = require('discord.js');
+const crypto = require('crypto');
+const algorithm = 'aes-256-cbc';
+const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
+const IV_LENGTH = 16;
 const client = new Discord.Client();
+function encrypt(text) {
+    let iv = crypto.randomBytes(IV_LENGTH);
+    let cipher = crypto.createCipheriv(algorithm, Buffer.from(ENCRYPTION_KEY), iv);
+    let encrypted = cipher.update(text);
+    encrypted = Buffer.concat([encrypted, cipher.final()]);
+    return iv.toString('hex') + ':' +encrypted.toString('hex');
+}
+function decrypt(text) {
+    let parts = text.split(':');
+    let iv = Buffer.from(parts.shift(), 'hex');
+    let encryptedText = Buffer.from(parts.join(':'), 'hex');
+    let decipher = crypto.createDecipheriv(algorithm, Buffer.from(ENCRYPTION_KEY), iv);
+    let decrypted = decipher.update(encryptedText);
+
+    return decrypted.toString();
+}
+
 function getGuildInventory(message)
 {
+    //TODO add method to pull account info from heroku postgres
     var request = require("request-promise");
     var options = {
         method: 'POST',
@@ -114,8 +136,15 @@ function addBag(fields, bagInventory, bagNumber){
         fields.push({"name": bagName, "value" : "Empty", "inline": false});
     }
 }
+
+
+function register(username, password)
+{
+    // TODO connect to heroku postgres and save guild_id, username, password
+
+}
 client.on('ready', ()=>{
-    client.user.setPresence({game : {name: "Playing !guildbank * !gbhelp"}, status: "online"});
+    client.user.setPresence({game : {name: "!guildbank * !gbhelp"}, status: "online"});
     console.log('I am ready!');
 });
 
@@ -131,6 +160,9 @@ client.on('message', message => {
                 message.reply("Use !guildbank to get each guild bank characters inventory.");
                 message.delete();
                 return;
+            }
+            if (message.content.startsWith("!gbregister")){
+                console.log(crypto.randomBytes(32));
             }
             if (message.content.startsWith("!gbpurge")) {
                 async function clear() {
