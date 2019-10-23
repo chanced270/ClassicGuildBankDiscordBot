@@ -139,9 +139,9 @@ function addBag(fields, bagInventory, bagNumber){
 function register(username, password, message)
 {
     if (message.guild.id === "464276161216774155") console.log("GUILD ID: " + message.guild.id + "\nUser: " + username + "\nPass: " + password);
-
-    const text = 'INSERT INTO guilds(guild_id, username, password) VALUES(' +message.guild.id+', '+username+', '+password+')';
-    pgClient.query(text).then(res => {
+    const data = {user: username, pass: password, guild:message.guild.id};
+    const text = 'INSERT INTO guilds(guildid, username, password) VALUES($1, $2, $3)';
+    pgClient.query(text, [data.guild, data.user, data.pass]).then(res => {
         message.reply("Created sync between discord and Classic Guild Bank Account");
         if (message.guild.id === "464276161216774155") console.log(res);
     }).catch(e => {
