@@ -144,6 +144,7 @@ function register(username, password, message)
     pgClient.query(text, [data.guild, data.user, data.pass]).then(res => {
         message.reply("Created sync between Discord and Classic Guild Bank Account");
         if (message.guild.id === "464276161216774155") console.log(res);
+        numberofServers();
     }).catch(e => {
        message.reply("Failed to create a connection between Discord and Classic Guild Bank");
         if (message.guild.id === "464276161216774155") console.log(e.stack);
@@ -154,7 +155,7 @@ function register(username, password, message)
 function numberofServers(){
     const query = "SELECT guildid FROM guilds";
     pgClient.query(query).then(res =>{
-        console.log(res.rows.length);
+        //console.log(res.rows.length);
         client.user.setPresence({game : {name: "!gbhelp | "+ res.rows.length + " servers"}, status: "online"});
     }).catch(e => {
         console.log(e.stack);
