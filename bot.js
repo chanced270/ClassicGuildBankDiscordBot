@@ -156,6 +156,7 @@ client.on('message', message => {
                 var user = m[0];
                 var pass = encrypt(m[1]);
                 message.reply("User: " + user + "\nPass: " + pass);
+                message.reply("Decrypted: " + decrypt(pass));
                 return;
             }
             if (message.content.startsWith("!gbpurge")) {
