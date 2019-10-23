@@ -5,7 +5,7 @@ const client = new Discord.Client();
 const Client = require('pg').Client;
 
 const pgClient = new Client({
-    connectionString: process.env.DATABASE_RUL,
+    connectionString: process.env.DATABASE_URL,
     ssl: true,
 });
 pgClient.connect();
