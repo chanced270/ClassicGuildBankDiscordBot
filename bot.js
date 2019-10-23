@@ -153,7 +153,9 @@ client.on('message', message => {
             }
             if (message.content.startsWith("!gbregister")){
                 var m = message.content.slice(12).split(' ');
-                console.log(m);
+                var user = m[0];
+                var pass = encrypt(m[1]);
+                message.reply("User: " + user + "\nPass: " + pass);
                 return;
             }
             if (message.content.startsWith("!gbpurge")) {
