@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const CryptoJs = require('crypto-js');
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
+const client = new Discord.Client();
 
 function encrypt(text){
     return CryptoJs.AES.encrypt(text, ENCRYPTION_KEY);
@@ -9,7 +10,6 @@ function decrypt(cipher) {
     var bytes = CryptoJs.AES.decrypt(cipher, ENCRYPTION_KEY);
     return bytes.toString(CryptoJs.enc.Utf8);
 }
-
 
 function getGuildInventory(message)
 {
@@ -152,7 +152,7 @@ client.on('message', message => {
                 return;
             }
             if (message.content.startsWith("!gbregister")){
-                var m = message.content.split(" ");
+                var m = message.content.split("\n");
                 console.log(m);
                 return;
             }
