@@ -21,6 +21,12 @@ function decrypt(cipher) {
 
 function getGuildInventory(message)
 {
+    var tokenInfo = getTokenInfo(message.guild.id.toString());
+    if (!tokenInfo)
+    {
+        message.reply("Unable to retrieve Guild Bank");
+        return;
+    }
     //TODO add method to pull account info from heroku postgres
     var request = require("request-promise");
     var options = {
@@ -29,8 +35,8 @@ function getGuildInventory(message)
         headers: {'Content-Type': 'application/json' },
         body: {
             guildToken: "",
-            password: process.env.CBG_PASS,
-            username: "Chanced270"
+            password: decrypt(tokenInfo.pass),
+            username: tokenInfo.user,
         },
         json: true
     };
@@ -150,6 +156,17 @@ function register(username, password, message)
     });
 
 
+}
+
+function getTokenInfo(message){
+    const query = "SELECT * FROM guilds WHERE guildid='$1'";
+    const values = [message.guild.id.toString()];
+    pgClient.query(query, values).then(res =>{
+        console.log(res);
+    }).catch(e => {
+        message.reply("Please register the bot using your credentials for classicguildbank.com\n !gbregister [user] [password]");
+
+    })
 }
 client.on('ready', ()=>{
     client.user.setPresence({game : {name: "!guildbank * !gbhelp"}, status: "online"});
