@@ -155,7 +155,7 @@ function numberofServers(){
     const query = "SELECT guildid FROM guilds";
     pgClient.query(query).then(res =>{
         console.log(res.rows.length);
-
+        client.user.setPresence({game : {name: "!gbhelp | "+ res.rows.length + " servers"}, status: "online"});
     }).catch(e => {
         console.log(e.stack);
     });
@@ -174,7 +174,6 @@ function getTokenInfo(message){
 }
 client.on('ready', ()=>{
     numberofServers();
-    client.user.setPresence({game : {name: "!gbhelp | "}, status: "online"});
     console.log('I am ready!');
 });
 
