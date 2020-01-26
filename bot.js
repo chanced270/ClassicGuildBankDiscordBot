@@ -3,6 +3,7 @@ const CryptoJs = require('crypto-js');
 const ENCRYPTION_KEY = process.env.ENCRYPTION_KEY;
 const client = new Discord.Client();
 const Client = require('pg').Client;
+const DevGuildId = process.env.GuildID;
 
 const pgClient = new Client({
     connectionString: process.env.DATABASE_URL,
@@ -138,12 +139,12 @@ function addBag(fields, bagInventory, bagNumber){
 
 function register(username, password, message)
 {
-    if (message.guild.id === "464276161216774155") console.log("GUILD ID: " + message.guild.id + "\nUser: " + username + "\nPass: " + password);
+    if (message.guild.id === DevGuildID) console.log("GUILD ID: " + message.guild.id + "\nUser: " + username + "\nPass: " + password);
     const data = {user: username.toString(), pass: password.toString(), guild:message.guild.id.toString()};
     const text = 'INSERT INTO guilds(guildid, username, password) VALUES($1, $2, $3) RETURNING *';
     pgClient.query(text, [data.guild, data.user, data.pass]).then(res => {
         message.reply("Created sync between Discord and Classic Guild Bank Account");
-        if (message.guild.id === "464276161216774155") console.log(res);
+        if (message.guild.id === DevGuildID) console.log(res);
         numberofServers();
     }).catch(e => {
         if (e.constraint === "Guild ID must be unique")
@@ -152,8 +153,8 @@ function register(username, password, message)
             return;
         }
        message.reply("Failed to create a connection between Discord and Classic Guild Bank");
-        if (message.guild.id === "464276161216774155") console.log(e.stack);
-        if (message.guild.id === "464276161216774155") console.log(e);
+        if (message.guild.id === DevGuildID) console.log(e.stack);
+        if (message.guild.id === DevGuildID) console.log(e);
     });
 
 
@@ -172,11 +173,11 @@ function getTokenInfo(message){
     var guildID = message.guild.id;
     const query = "SELECT username, password FROM guilds where guildid = '"+guildID+"'";
     pgClient.query(query).then(res =>{
-        if (message.guild.id === "464276161216774155") console.log(res.rows[0]);
+        if (message.guild.id === DevGuildID) console.log(res.rows[0]);
         getGuildInventory(message, {user: res.rows[0].username, pass: res.rows[0].password});
     }).catch(e => {
         message.reply("Please register the bot using your credentials for classicguildbank.com\n !gbregister [user] [password]");
-        if (message.guild.id === "464276161216774155") console.log(e.stack);
+        if (message.guild.id === DevGuildID) console.log(e.stack);
     });
 }
 client.on('ready', ()=>{
